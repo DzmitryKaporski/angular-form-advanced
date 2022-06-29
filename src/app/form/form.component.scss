@@ -1,0 +1,17 @@
+form .ng-valid {
+  border-bottom: solid 2px green;
+}
+
+form .ng-invalid {
+  border-bottom: solid 2px red;
+}
+
+.alert {
+  font-size: 12px;
+  color: green;
+}
+
+.alert-danger {
+  font-size: 12px;
+  color: red;
+}

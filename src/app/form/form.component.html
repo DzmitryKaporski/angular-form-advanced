@@ -1,0 +1,68 @@
+<form (submit)="onSubmit()" [formGroup]="userForm">
+  <p>
+    <label for="name">{{ formLabels.name }}:
+      <span *ngIf="userForm.get('name')?.hasError('minlength')" class="alert alert-danger">
+        Minlength 4 symbol
+      </span>
+      <span *ngIf="userForm.get('name')?.hasError('maxlength')" class="alert alert-danger">
+        Maxlength 15 symbol
+      </span>
+    </label>
+    <input formControlName="name" type="text" id="name" placeholder="{{ formPlaceholder.name }}" />
+  </p>
+
+  <p>
+    <button type="button" class="buttonPassword" (click)="showHidePassword()" *ngIf="userForm.value.password">
+      {{ formLabels.password }}
+      <img src="https://img.icons8.com/ios/500/show-password.png" alt="img"
+        style="width: 10px; height: 10px; background-size: cover" />
+      :
+      <span *ngIf="
+          userForm.get('password')?.hasError('minlength') &&
+          userForm.get('password')?.touched
+        " class="alert alert-danger">
+        Minlength 8 symbol
+      </span>
+    </button>
+
+    <label *ngIf="!userForm.value.password" for="password">Password: </label>
+    <input formControlName="password" type="{{ typePassword }}" id="password"
+      placeholder="{{ formPlaceholder.password }}" />
+  </p>
+
+  <p>
+    <label for="email">{{ formLabels.email }}:
+      <span *ngIf="userForm.get('email')?.hasError('pattern')" class="alert alert-danger">
+        Wrong format email
+      </span>
+    </label>
+    <input formControlName="email" type="email" id="email" placeholder="{{ formPlaceholder.email }}" />
+  </p>
+
+  <p>
+    <label for="age">{{ formLabels.age }}:
+      <span *ngIf="userForm.get('age')?.hasError('min')" class="alert alert-danger">
+        Age must be 18+
+      </span>
+    </label>
+    <input formControlName="age" type="number" id="age" placeholder="{{ formPlaceholder.age }}" />
+  </p>
+
+  <p>
+    <label for="role">{{ formLabels.role }}: </label>
+    <select class="form-select" formControlName="role" id="role" required>
+      <option [value]="null" disabled selected>
+        {{ formPlaceholder.role }}
+      </option>
+      <option [value]="role" *ngFor="let role of roles">
+        {{ role }}
+      </option>
+    </select>
+  </p>
+
+  <button class="buttonSubmit" type="submit" [disabled]="userForm.invalid">
+    Save
+  </button>
+</form>
+
+<div>{{result|json}}</div>
